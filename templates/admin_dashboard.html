@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | JORDAN BUYS{% endblock %}
+{% block content %}
+<main class="admin-wrap">
+  <div class="admin-head">
+    <div><p class="eyebrow">Master dashboard</p><h1>Submissions</h1></div>
+    <a class="btn secondary" href="{{ url_for('admin_logout') }}">Logout</a>
+  </div>
+
+  <div class="stats">
+    {% for label, count in counts.items() %}
+      <div class="stat"><span>{{ label }}</span><strong>{{ count }}</strong></div>
+    {% endfor %}
+  </div>
+
+  <form class="filters" method="get">
+    <a class="chip {% if not status %}active{% endif %}" href="{{ url_for('admin_dashboard') }}">All</a>
+    {% for s in ["Pending", "Accepted", "Quoted", "Rejected"] %}
+      <a class="chip {% if status == s %}active{% endif %}" href="{{ url_for('admin_dashboard', status=s) }}">{{ s }}</a>
+    {% endfor %}
+    <input style="max-width:260px" name="search" placeholder="Search shoe, name, email, size" value="{{ search }}">
+    <button class="chip" type="submit">Search</button>
+  </form>
+
+  <table class="table">
+    <thead><tr><th>ID</th><th>Date</th><th>Shoe</th><th>Size</th><th>Seller</th><th>Status</th><th>Quote</th><th></th></tr></thead>
+    <tbody>
+      {% for s in submissions %}
+      <tr>
+        <td>#{{ s.id }}</td>
+        <td>{{ s.created_at }}</td>
+        <td><strong>{{ s.shoe_name }}</strong><br>{{ s.condition }} {{ s.used_level }}</td>
+        <td>{{ s.shoe_size }}</td>
+        <td>{{ s.full_name }}<br>{{ s.email }}</td>
+        <td><span class="status {{ s.status }}">{{ s.status }}</span></td>
+        <td>{{ s.quote_amount or "—" }}</td>
+        <td><a class="btn primary" href="{{ url_for('admin_submission', submission_id=s.id) }}">Review</a></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="8">No submissions yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</main>
+{% endblock %}

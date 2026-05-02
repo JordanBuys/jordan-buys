@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+{% block title %}Review Submission | JORDAN BUYS{% endblock %}
+{% block content %}
+<main class="admin-wrap">
+  <div class="admin-head">
+    <div><p class="eyebrow">Review submission #{{ sub.id }}</p><h1>{{ sub.shoe_name }}</h1></div>
+    <a class="btn secondary" href="{{ url_for('admin_dashboard') }}">Back</a>
+  </div>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}<div class="flash">{{ messages[0] }}</div>{% endif %}
+  {% endwith %}
+
+  <div class="detail-grid">
+    <section class="admin-card">
+      <h2>Seller & shoe details</h2>
+      <p><strong>Shoe:</strong> {{ sub.shoe_name }}</p>
+      <p><strong>Size:</strong> {{ sub.shoe_size }}</p>
+      <p><strong>Condition:</strong> {{ sub.condition }} {{ sub.used_level }}</p>
+      <p><strong>Notes:</strong> {{ sub.condition_notes or "—" }}</p>
+      <p><strong>Name:</strong> {{ sub.full_name }}</p>
+      <p><strong>Phone:</strong> {{ sub.phone }}</p>
+      <p><strong>Email:</strong> {{ sub.email }}</p>
+      <p><strong>Shipping:</strong> {{ sub.address }}, {{ sub.city }}, {{ sub.state }} {{ sub.zip }}</p>
+      <p><strong>Payment:</strong> {{ sub.payment_method }} — {{ sub.payment_contact }}</p>
+    </section>
+
+    <section class="admin-card">
+      <h2>Admin decision</h2>
+      <form method="post" action="{{ url_for('update_submission', submission_id=sub.id) }}">
+        <label>Status
+          <select name="status">
+            {% for s in ["Pending", "Accepted", "Quoted", "Rejected"] %}
+              <option value="{{ s }}" {% if sub.status == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Quote amount<input name="quote_amount" placeholder="$0.00" value="{{ sub.quote_amount or '' }}"></label>
+        <label>Admin notes<textarea name="admin_notes" rows="6" placeholder="Internal notes, offer logic, flaws, follow-up needed...">{{ sub.admin_notes or "" }}</textarea></label>
+        <button class="btn primary form-button" type="submit">Save review</button>
+      </form>
+    </section>
+  </div>
+
+  <section class="admin-card">
+    <h2>Photos</h2>
+    <div class="photo-grid">
+      {% for p in photos %}
+        <a href="{{ url_for('uploaded_file', submission_id=sub.id, filename=p.filename) }}" target="_blank">
+          <img src="{{ url_for('uploaded_file', submission_id=sub.id, filename=p.filename) }}" alt="Shoe photo">
+        </a>
+      {% else %}
+        <p>No photos uploaded.</p>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}

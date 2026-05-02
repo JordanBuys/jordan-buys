@@ -1,0 +1,145 @@
+
+{% extends "base.html" %}
+{% block title %}JORDAN BUYS | Sneaker Quotes{% endblock %}
+{% block content %}
+<header>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Submit shoes for quote</p>
+      <h1>Sell your sneakers. Get a quote fast.</h1>
+      <p class="hero-text">Submit your new or used shoes for a buyback quote. Add photos, shoe name, size, condition, payout preference, contact details, and shipping address — if accepted, JORDAN BUYS sends your quote within 24 hours.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#submit">Submit shoes for quote</a>
+        <a class="btn secondary" href="#how">How it works</a>
+      </div>
+    </div>
+    <div class="hero-showcase">
+      <div class="sneaker-art"><img src="{{ url_for('static', filename='') }}" style="display:none"></div>
+      <div class="showcase-card">
+        <div>
+          <p class="eyebrow">Premium review</p>
+          <h2>Submit. Review. Quote.</h2>
+          <p>Start by submitting your shoes below. Accepted pairs receive quotes within 24 hours.</p>
+        </div>
+        <div class="price-tag"><span>Reply</span>24 HR</div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<section class="quote-strip">
+  <strong>Ready to sell?</strong>
+  <span>Submit photos and shoe details now for a JORDAN BUYS quote.</span>
+  <a href="#submit">Start quote</a>
+</section>
+
+<section id="how" class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Minimal process</p>
+    <h2>Built for quick, premium sneaker submissions.</h2>
+  </div>
+  <div class="step-grid">
+    <article class="step"><span>01</span><div><h3>Upload the pair</h3><p>Submit the shoe name, size, DS or used condition, used level, and clean photos.</p></div></article>
+    <article class="step"><span>02</span><div><h3>Review & verify</h3><p>JORDAN BUYS checks condition, photo quality, style, size, and resale demand.</p></div></article>
+    <article class="step"><span>03</span><div><h3>Receive quote</h3><p>If accepted, you’ll receive a quote within 24 hours with next steps.</p></div></article>
+  </div>
+</section>
+
+<section id="submit" class="section form-section">
+  <div class="form-intro">
+    <p class="eyebrow">Seller intake</p>
+    <h2>Submit your sneakers</h2>
+    <p>Designed for fast review. The more accurate your photos and condition notes, the better your quote experience.</p>
+    <ul class="trust-list">
+      <li>DS and used pairs accepted</li>
+      <li>Multiple photo uploads</li>
+      <li>Preferred payout method</li>
+      <li>Shipping and contact info included</li>
+    </ul>
+  </div>
+
+  <form class="submission-form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<div class="flash">{{ messages[0] }}</div>{% endif %}
+    {% endwith %}
+
+    <fieldset>
+      <legend>Shoe details</legend>
+      <div class="two-col">
+        <label>Shoe name<input type="text" name="shoeName" placeholder="e.g., Jordan 1 Retro High Chicago" required></label>
+        <label>Size<input type="text" name="shoeSize" placeholder="e.g., Men’s 10.5" required></label>
+      </div>
+      <div class="two-col">
+        <label>Condition
+          <select name="condition" id="condition" required>
+            <option value="">Select condition</option><option value="DS / New">DS / New</option><option value="Used">Used</option>
+          </select>
+        </label>
+        <label>Used condition level
+          <select name="usedLevel" id="usedLevel">
+            <option value="">Only required if used</option><option>Like New - 9/10</option><option>Excellent - 8/10</option><option>Good - 7/10</option><option>Fair - 6/10</option><option>Heavily Used - 5/10 or below</option>
+          </select>
+        </label>
+      </div>
+      <label>Condition notes<textarea name="conditionNotes" rows="4" placeholder="Mention flaws, replacement box, missing laces, yellowing, heel drag, stains, etc."></textarea></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Photos</legend>
+      <p class="helper">Upload both shoes, soles, size tag, box label, and close-ups of flaws.</p>
+      <label class="file-upload">Add shoe photos<input type="file" name="photos" accept="image/*" multiple required></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Payment preference</legend>
+      <div class="radio-grid">
+        <label><input type="radio" name="payment" value="Zelle" required> Zelle</label>
+        <label><input type="radio" name="payment" value="PayPal"> PayPal</label>
+        <label><input type="radio" name="payment" value="Cash App"> Cash App</label>
+        <label><input type="radio" name="payment" value="Venmo"> Venmo</label>
+        <label><input type="radio" name="payment" value="Bank Transfer"> Bank Transfer</label>
+      </div>
+      <label>Payment handle or email<input type="text" name="paymentContact" placeholder="Enter payment handle, email, or phone" required></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Contact info</legend>
+      <div class="two-col">
+        <label>Full name<input type="text" name="fullName" required></label>
+        <label>Phone number<input type="tel" name="phone" required></label>
+      </div>
+      <label>Email address<input type="email" name="email" required></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Shipping address</legend>
+      <label>Street address<input type="text" name="address" required></label>
+      <div class="three-col">
+        <label>City<input type="text" name="city" required></label>
+        <label>State<input type="text" name="state" required></label>
+        <label>ZIP<input type="text" name="zip" required></label>
+      </div>
+    </fieldset>
+
+    <label class="checkbox"><input type="checkbox" required> I understand that if my submission is accepted, JORDAN BUYS will send a quote within 24 hours.</label>
+    <button class="btn primary form-button" type="submit">Submit for review</button>
+  </form>
+</section>
+
+<section class="section faq">
+  <div><p class="eyebrow">Quote policy</p><h2>Clean intake. Premium review.</h2></div>
+  <div class="faq-card"><h3>When will I hear back?</h3><p>If your sneakers are accepted for review, you’ll receive a quote within 24 hours.</p></div>
+  <div class="faq-card"><h3>What photos should I send?</h3><p>Top, side, back, soles, size tag, box label, and close-ups of any wear or flaws.</p></div>
+  <div class="faq-card"><h3>Can used sneakers be submitted?</h3><p>Yes. Select “Used” and choose the condition level that best matches your pair.</p></div>
+</section>
+<footer class="footer"><strong>JORDAN BUYS</strong><span>Luxury sneaker buyback submissions.</span></footer>
+
+<script>
+const condition = document.getElementById("condition");
+const usedLevel = document.getElementById("usedLevel");
+condition.addEventListener("change", () => {
+  usedLevel.required = condition.value === "Used";
+  if (condition.value !== "Used") usedLevel.value = "";
+});
+</script>
+{% endblock %}
