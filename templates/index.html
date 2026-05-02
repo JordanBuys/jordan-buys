@@ -1,11 +1,11 @@
 
 {% extends "base.html" %}
-{% block title %}HEARTH BUYS | Sneaker Quotes{% endblock %}
+{% block title %}HEARTH BUYS | Sneaker and Apparel Quotes{% endblock %}
 {% block content %}
 <header>
   <section class="hero">
     <div>
-      <p class="eyebrow">Submit shoes for quote</p>
+      <p class="eyebrow">Submit shoes and apparel for quote</p>
       <h1>Sell your sneakers and apparel. Get a quote fast.</h1>
       <p class="hero-text">Submit your new or used shoes and clothges for a buyback quote. Add photos, shoe name, size, condition, payout preference, contact details, and shipping address — if accepted, HEARTH BUYS sends your quote within 24 hours.</p>
       <div class="hero-actions">
@@ -19,7 +19,7 @@
         <div>
           <p class="eyebrow">Premium review</p>
           <h2>Submit. Review. Quote.</h2>
-          <p>Start by submitting your shoes below. Accepted pairs receive quotes within 24 hours.</p>
+          <p>Start by submitting your item below. Accepted items receive quotes within 24 hours.</p>
         </div>
         <div class="price-tag"><span>Reply</span>24 HR</div>
       </div>
@@ -48,7 +48,7 @@
 <section id="submit" class="section form-section">
   <div class="form-intro">
     <p class="eyebrow">Seller intake</p>
-    <h2>Submit your sneakers</h2>
+    <h2>Submit your sneakers and apparel </h2>
     <p>Designed for fast review. The more accurate your photos and condition notes, the better your quote experience.</p>
     <ul class="trust-list">
       <li>DS and used pairs accepted</li>
@@ -64,11 +64,77 @@
     {% endwith %}
 
     <fieldset>
-      <legend>Shoe details</legend>
-      <div class="two-col">
-        <label>Shoe name<input type="text" name="shoeName" placeholder="e.g., Jordan 1 Retro High Chicago" required></label>
-        <label>Size<input type="text" name="shoeSize" placeholder="e.g., Men’s 10.5" required></label>
-      </div>
+      <legend>Item details</legend>
+      Mom:
+	<div class="two-col">
+  <label>Item category
+    <select name="itemType" required>
+      <option value="Shoes">Shoes</option>
+      <option value="Apparel">Apparel</option>
+    </select>
+  </label>
+
+  <label>Brand
+    <input type="text" name="brandName" placeholder="e.g., Nike, Supreme, Essentials">
+  </label>
+</div>
+
+<div class="two-col">
+  <label>Shoe / apparel name
+    <input type="text" name="shoeName" placeholder="e.g., Jordan 1 Chicago or Supreme Hoodie" required>
+  </label>
+
+  <label>Size
+    <input type="text" name="shoeSize" placeholder="e.g., Men's 10.5 or Large" required>
+  </label>
+</div>
+
+<div class="two-col">
+  <label>Apparel type
+    <select name="apparelType">
+      <option value="">Only if apparel</option>
+      <option>Hoodie</option>
+      <option>T-shirt</option>
+      <option>Jacket</option>
+      <option>Pants</option>
+      <option>Shorts</option>
+      <option>Hat</option>
+      <option>Other</option>
+    </select>
+  </label>
+
+  <label>Apparel size
+    <input type="text" name="apparelSize" placeholder="S, M, L, XL">
+  </label>
+</div>
+
+Jordan Jun:
+	<div class="two-col">
+  <label>Item category
+    <select name="itemType" required>
+      <option value="Shoes">Shoes</option>
+      <option value="Apparel">Apparel</option>
+    </select>
+  </label>
+
+  <label>Brand
+    <input type="text" name="brandName" placeholder="e.g., Nike, Supreme, Essentials">
+  </label>
+</div>
+
+<div class="two-col">
+  <label>Shoe / apparel name
+    <input type="text" name="shoeName" placeholder="e.g., Jordan 1 Chicago or Supreme Hoodie" required>
+  </label>
+
+  <label>Size
+    <input type="text" name="shoeSize" placeholder="e.g., Men's 10.5 or Large" required>
+  </label>
+</div>
+
+<div class="two-col">
+  <label>Apparel type
+    <select name="apparelType">
       <div class="two-col">
         <label>Condition
           <select name="condition" id="condition" required>
