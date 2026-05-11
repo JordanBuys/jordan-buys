@@ -1,5 +1,5 @@
 
-# JORDAN BUYS Real App
+# HEARTH BUYS Real App
 
 This is a real local backend starter app with:
 
@@ -15,7 +15,7 @@ This is a real local backend starter app with:
 ## Run locally
 
 ```bash
-cd jordan_buys_real_app
+cd hearth_buys_real_app
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
